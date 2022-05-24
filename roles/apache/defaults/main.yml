@@ -63,7 +63,7 @@ apache_packages_state: present
 
 # Webservers
 lb_name: 'myapp1'
-web1: '172.31.20.159'
+web1: '172.31.19.32'
 web2: '172.31.30.109'
 
 #*****************vars for loadbalancing status***************
