@@ -1,25 +1,45 @@
 ---
-- name: update web and nfs servers
-  hosts: webservers, nfs
-  remote_user: ec2-user
-  become: yes
-  become_user: root
-  tasks:
-    - name: ensure wireshark is at the latest version
-      yum:
-        name: wireshark
-        state: latest
+# - name: update web and nfs servers
+#   hosts: webservers, nfs
+#   remote_user: ec2-user
+#   become: yes
+#   become_user: root
+#   tasks:
+#     - name: ensure wireshark is at the latest version
+#       yum:
+#         name: wireshark
+#         state: latest
 
- # ==============================
+#  # ==============================
 
-- name: update LB and db server
-  hosts: lb, db
-  remote_user: ubuntu
-  become: yes
-  become_user: root
+# - name: update LB and db server
+#   hosts: lb, db
+#   remote_user: ubuntu
+#   become: yes
+#   become_user: root
+#   tasks:
+#     - name: ensure wireshark is at the latest version
+#       apt:
+#         name: wireshark
+#         state: latest
+
+# Ansible playbook for standard installations and commands.
+- hosts: all
+  become: true
   tasks:
-    - name: ensure wireshark is at the latest version
-      apt:
-        name: wireshark
-        state: latest
+   - name: installing and updating repos
+     apt:
+       update_cache: yes
+       state: present
+
+   - name: ensure ntp is installed
+     apt:
+       name: ntp
+       state: present
+
+   - name: ensure ntp is running 
+     service:
+       name: ntp
+       state: started
+       enabled: yes
   
