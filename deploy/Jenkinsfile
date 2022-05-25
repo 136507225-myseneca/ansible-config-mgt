@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+  stages {
+    stage('SCM Checkout') {
+      steps {
+        git(branch: 'main', url: 'https://github.com/tshenoy19/ansible-config-mgt.git')
+      }
+    }
+
+    stage('Execute Ansible') {
+      steps {
+        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: '/usr/bin', inventory: 'inventory/${inventory_file}', playbook: 'playbooks/site.yml'
+      }
+   }
+
+   stage('Clean up') {
+    steps {
+      cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenUnstable: true, deleteDirs: true)
+    }
+  }
+ }
+}
