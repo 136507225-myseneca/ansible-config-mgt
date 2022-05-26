@@ -93,6 +93,6 @@ nginx_log_format: |-
   '$status $body_bytes_sent "$http_referer" '
   '"$http_user_agent" "$http_x_forwarded_for"'
 
-# Declaring Load balancer variables
-  enable_nginx_lb: false
-  load_balancer_is_required: false
+# # Declaring Load balancer variables
+#   enable_nginx_lb: false
+#   load_balancer_is_required: false
